@@ -1,4 +1,3 @@
-import Direction as dr
 import Movement as mv
 import pygame 
 
@@ -12,21 +11,9 @@ class Entity:
         self.__events = []
         self.__mouse = None
         self.movement = mv.Movement()
-        self.direction = dr.Direction()
-        
-        
-        self.__surface = pygame.Rect(self.movement.get_pos(), (1, 1)) # surface or image to be displayed
-        """
-        ENTITY PROPERTIES THAT MUST BE CARRIED THROUGHOUT FOR PYPAGE CONSISTENCY
-        - position
-        - size 
-        """
-        
-        """
-        ENNTITY FUNCTIONS TO FULFILL SIMPLICITY AMONGST INTERACTION 
-        - scale size  (percentage based increase of size)
-        - move 
-        """
+        self.__surface = pygame.Surface((1,1)) # surface or image to be displayed
+        self.__rect = self.__surface.get_rect(topleft = self.movement.get_pos())
+
     def get_mouse(self, mouse = None):
         """
         Updates mouse properties if given a value
@@ -50,11 +37,11 @@ class Entity:
         Updates entity 
         """
         self.movement.update()
-        self.__surface.update(self.movement.get_pos(), (1,1)) # updating position and size of surface or image
+        self.__rect.update(self.movement.get_pos(), self.__surface.get_size()) # updating position and size of surface or image
     
     def draw(self, screen): # DRAWING TO SCREEN
         """
         draws entity to a given screen 
         """
-        #screen.blit(self.__surface, imagerect)
+        #screen.blit(self.__surface, self.__rect)
         pass
